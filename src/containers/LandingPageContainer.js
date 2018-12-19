@@ -8,8 +8,9 @@ const mapStateToProps = state => ({
   tags: state.tag.tags,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   loadData: () => dispatch(fetchTags()),
+  tagOnClick: destination => ownProps.history.push(destination),
 });
 
 export default withRouter(connect(
