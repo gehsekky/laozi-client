@@ -16,6 +16,7 @@ class DocumentPage extends React.Component {
     const {
       document,
       downloadDocument,
+      history,
     } = this.props;
 
     if (!document.documentId) return null;
@@ -23,7 +24,7 @@ class DocumentPage extends React.Component {
     return (
       <div className={styles.documentPage}>
         <div className={styles.backButtonContainer}>
-          <BackButton />
+          <BackButton history={history} />
         </div>
         <Panel>
           <Panel.Body>
@@ -33,14 +34,17 @@ class DocumentPage extends React.Component {
             </FormGroup>
             <FormGroup>
               <ControlLabel>tags</ControlLabel>
-              <FormControl.Static>
-                <div className={styles.tagContainer}>
-                  {
-                    document.documentTags.map(documentTag => (
-                      <h4><Label key={documentTag.documentTagId}>{documentTag.tag.name}</Label></h4>
-                    ))
-                  }
-                </div>
+              <FormControl.Static className={styles.tagContainer}>
+                {
+                  document.documentTags.map(documentTag => (
+                    <Label
+                      key={documentTag.documentTagId}
+                      className={styles.tag}
+                    >
+                      {documentTag.tag.name}
+                    </Label>
+                  ))
+                }
               </FormControl.Static>
             </FormGroup>
             <div>
@@ -56,6 +60,7 @@ class DocumentPage extends React.Component {
 DocumentPage.propTypes = {
   document: PropTypes.object,
   downloadDocument: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
   loadData: PropTypes.func.isRequired,
 };
 
